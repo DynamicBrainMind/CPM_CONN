@@ -1,8 +1,8 @@
-function [p_all,R,R_permute_all]=CPM_internal_permute(all_mats,all_behav,dataset,...
+function [cpm_perm_results]=CPM_internal_permute(all_mats,all_behav,dataset,...
     kfolds,r_method,pthresh,part_var,motion_var,outname,no_iter,CPUs)
 
 % Permutation test for CPM_internal.m using "parfor" for parallel computing
-% written by Aaron Kucyi, Northeastern University
+% written by Aaron Kucyi
 % adapted from Shen et al. (2017 Nature Protocols)
 % INPUTS:
 % all_mats (required)   : ROI x ROI x trials FC matrix (or single vector for one ROI/edge)
@@ -22,7 +22,7 @@ function [p_all,R,R_permute_all]=CPM_internal_permute(all_mats,all_behav,dataset
 % no_iter (optional)    : number of iterations for permute test (default=1000)
 % CPUs (optional)       : n cores for parfor permutation loop (default =1)
 
-% OUTPUTS:
+% OUTPUTS (in cpm_perm_results structure):
 % p                     : p value for permutation test
 % R_posneg              : real R value (mean of 100 iterations if using kfold)
 % R_permute             : distribution of null R values
@@ -88,9 +88,9 @@ R_pos=R(1); R_neg=R(2); R_posneg=R(3);
 else % for kfolds, do 120 iterations and get avg value
     for i=1:120
         [R]=CPM_internal(all_mats,all_behav,dataset,kfolds,r_method,pthresh,part_var,motion_var,outname); 
-        R_pos(i)=R(1); R_neg(i)=R(2); R_posneg(i)=R(3);
+        R_pos_kfolds(i)=R(1); R_neg_kfolds(i)=R(2); R_posneg_kfolds(i)=R(3);
     end
-    R_pos=mean(R_pos); R_neg=mean(R_neg); R_posneg=mean(R_posneg);
+    R_pos=mean(R_pos_kfolds); R_neg=mean(R_neg_kfolds); R_posneg=mean(R_posneg_kfolds);
 end
 % permutation test for significance for each subject
        R_permute_pos=[]; R_permute_neg=[]; R_permute_posneg=[];
@@ -133,3 +133,13 @@ p_neg=position_true_neg/no_iter;
 
 p_all=[p_pos p_neg p_posneg];
 R_permute_all=[R_permute_pos, R_permute_neg, R_permute_posneg];
+
+% organize outputs
+cpm_perm_results={};
+cpm_perm_results.p_all=p_all;
+cpm_perm_results.R=R;
+cpm_perm_results.R_permute_all=R_permute_all;
+if ~isempty(kfolds)
+    cpm_perm_results.R_posneg_kfolds=R_posneg_kfolds;
+end
+
