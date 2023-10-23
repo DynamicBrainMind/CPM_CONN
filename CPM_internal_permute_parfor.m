@@ -137,7 +137,9 @@ R_permute_all=[R_permute_pos, R_permute_neg, R_permute_posneg];
 % organize outputs
 cpm_perm_results={};
 cpm_perm_results.p_all=p_all;
-cpm_perm_results.R=R;
+cpm_perm_results.R_pos=R_pos;
+cpm_perm_results.R_neg=R_neg;
+cpm_perm_results.R_posneg=R_posneg;
 cpm_perm_results.R_permute_all=R_permute_all;
 if ~isempty(kfolds)
     cpm_perm_results.R_posneg_kfolds=R_posneg_kfolds;
