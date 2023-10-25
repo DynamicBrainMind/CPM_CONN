@@ -17,7 +17,7 @@ pos_colors=cbrewer('seq','Reds',256);
 neg_colors=cbrewer('seq','Blues',256);
 
 global globalDataDir;
-datapath=[globalDataDir];
+datapath=[globalDataDir];or
 if nargin<4 || isempty(norm)
    	norm=0;
 end
@@ -141,7 +141,7 @@ colormap(ax(1),pos_colors);
 c=colorbar('Location','southoutside');
 c.FontSize=14;
 if norm==1
- c.Label.String='Percentage of Edges';   
+ c.Label.String='Proportion of Edges';   
 elseif norm==0
 c.Label.String='Number of Edges';
 end
@@ -180,7 +180,7 @@ colormap(ax(2),neg_colors);
 c=colorbar('Location','southoutside');
 c.FontSize=14;
 if norm==1
- c.Label.String='Percentage of Edges';   
+ c.Label.String='Proportion of Edges';   
 elseif norm==0
 c.Label.String='Number of Edges';
 end

@@ -141,7 +141,7 @@ cpm_perm_results.R_pos=R_pos;
 cpm_perm_results.R_neg=R_neg;
 cpm_perm_results.R_posneg=R_posneg;
 cpm_perm_results.R_permute_all=R_permute_all;
-if ~isempty(kfolds)
+if kfolds~=no_sub % if not doing leave-one-out
     cpm_perm_results.R_posneg_kfolds=R_posneg_kfolds;
 end
 
