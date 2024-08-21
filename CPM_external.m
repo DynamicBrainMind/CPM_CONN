@@ -1,7 +1,7 @@
 function [results]=CPM_external(all_mats,all_behav,cpm,part_var,motion_var,strengthOnly)
 
 % Test CPM in external dataset 
-% written by Aaron Kucyi, Northeastern University
+% written by Aaron Kucyi
 % INPUTS:
 % all_mats (required)   : ROI x ROI x trials FC matrix (or single vector
 %                       for one ROI/edge) from test dataset

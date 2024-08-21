@@ -3,7 +3,7 @@ function [beta_lme,p_uncorrected,p_fdr_lme]=univariate_SchaeferYeo(all_mats,all_
 % compute mean within- and between-network Yeo7 network FC (based on
 % Schaefer nodes), then perform linear mixed effects analysis to predict behavior
 % applies FDR correction across all network pairs
-% written by Aaron Kucyi, Northeastern University
+% written by Aaron Kucyi
 % INPUTS:
 % all_mats (required)   : ROI x ROI x subjects FC matrix 
 % all_behav (required)  : behavioral score vector

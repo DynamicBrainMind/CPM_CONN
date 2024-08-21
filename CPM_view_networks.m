@@ -1,11 +1,11 @@
 function CPM_view_networks(cpm,atlas,dataset,norm)
 
 % Extract top intra- and inter-network contributors to a CPM
-% written by Aaron Kucyi, Northeastern University
+% written by Aaron Kucyi
 % INPUTS:
 % cpm (required)        : structure containing pos_mask and neg_mask (e.g.
 %                       the output from CPM_internal.m when setting train_mode to 2) 
-% atlas (required)      : 1=Shen268, 2=Schaefer300 (7Networks), 3=Schaefer300 (17Networks)
+% atlas (required)      : 1=Shen268, 2=Schaefer300 (7Networks), 3=Schaefer300 (17Networks), 4=Kong2022 MSHBM version of Schaefer300-17Network
 % dataset (required)    : name of dataset folder name
 % norm (optional)       : 0 = no normalization; 1 = normalize # of features per network pair by total # of network pairs
 % OUTPUTS:
@@ -17,26 +17,31 @@ pos_colors=cbrewer('seq','Reds',256);
 neg_colors=cbrewer('seq','Blues',256);
 
 global globalDataDir;
-datapath=[globalDataDir];or
+datapath=[globalDataDir];
 if nargin<4 || isempty(norm)
    	norm=0;
 end
 %% Load network labels
 if atlas==1
-atlas_name='Shen268';
-net_labels=importdata(['Lookup_shen268']);
-net_labels=net_labels(:,7);
-net_names={'SMN';'[]'; 'CO'; 'AUD'; 'DMN';'[]'; 'VIS'; 'FPN';...
+    atlas_name='Shen268';
+    net_labels=importdata(['Lookup_shen268']);
+    net_labels=net_labels(:,7);
+    net_names={'SMN';'[]'; 'CO'; 'AUD'; 'DMN';'[]'; 'VIS'; 'FPN';...
     'SAL'; 'SUB'; 'VAN'; 'DAN'; 'Unknown'};
 elseif atlas==2
-net_labels=importdata(['Schaefer_label300_7networks.mat']);
-net_names={'DMN'; 'DAN'; 'SAL'; 'FPCN'; 'LIM'; 'VIS'; 'SMN'};
-atlas_name='Schaefer300';
+    net_labels=importdata(['Schaefer_label300_7networks.mat']);
+    net_names={'DMN'; 'DAN'; 'SAL'; 'FPCN'; 'LIM'; 'VIS'; 'SMN'};
+    atlas_name='Schaefer300';
 elseif atlas==3 
-net_labels=importdata(['Schaefer_label300_17networks.mat']);
-net_names={'VIS_{A}'; 'VIS_{B}'; 'SMN_{A}'; 'SMN_{B}'; 'DAN_{A}'; 'DAN_{B}'; 'SAL_{A}'; 'SAL_{B}';...
- 'LIM_{A}'; 'LIM_{B}'; 'FPCN_{B}'; 'FPCN_{A}'; 'FPCN_{C}'; 'DMN_{A}'; 'DMN_{B}'; 'DMN_{C}'; 'TP'};
-atlas_name='Schaefer17Networks';
+    net_labels=importdata(['Schaefer_label300_17networks.mat']);
+    net_names={'VIS_{A}'; 'VIS_{B}'; 'SMN_{A}'; 'SMN_{B}'; 'DAN_{A}'; 'DAN_{B}'; 'SAL_{A}'; 'SAL_{B}';...
+    'LIM_{A}'; 'LIM_{B}'; 'FPCN_{B}'; 'FPCN_{A}'; 'FPCN_{C}'; 'DMN_{A}'; 'DMN_{B}'; 'DMN_{C}'; 'TP'};
+    atlas_name='Schaefer17Networks';
+elseif atlas==4 
+    net_labels=importdata(['Schaefer_label300_17networks_Kong2022.mat']);
+    net_names={'DMN_{A}'; 'DMN_{B}'; 'DMN_{C}'; 'LANG'; 'FPCN_{A}'; 'FPCN_{B}'; 'FPCN_{C}'; 'SAL_{A}';...
+        'SAL_{B}'; 'DAN_{A}'; 'DAN_{B}'; 'AUD'; 'SMN_{A}'; 'SMN_{B}'; 'VIS_{A}'; 'VIS_{B}'; 'VIS_{C}'};
+    atlas_name='Schaefer17Networks_Kong2022';
 end
 
 %% get n nodes per networks and n network-network pairs
@@ -81,7 +86,7 @@ if atlas==1 % remove "unknown" networks for Shen268 atlas
 pair_count_known=pair_count(1:end-1,1:end-1);
 pos_count_known=pos_count(1:end-1,1:end-1); % delete counts for unknown networks
 neg_count_known=neg_count(1:end-1,1:end-1); % delete counts for unknown networks
-elseif atlas==2 || atlas==3
+elseif atlas==2 || atlas==3 || atlas==4
 pair_count_known=pair_count;
 pos_count_known=pos_count; % delete counts for unknown networks
 neg_count_known=neg_count;    

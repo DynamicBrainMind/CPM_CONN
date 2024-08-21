@@ -2,7 +2,7 @@ function [R,P,pred_obs]=CPM_internal(all_mats,all_behav,dataset,...
     kfolds,r_method,pthresh,part_var,motion_var,outname,train_mode)
 
 % Connectome-based predictive modeling: internal (within-dataset) validation 
-% written by Aaron Kucyi, Northeastern University
+% written by Aaron Kucyi
 % adapted from Shen et al. (2017 Nature Protocols)
 % INPUTS:
 % all_mats (required)   : ROI x ROI x subjects FC matrix (or single vector for one ROI/edge)

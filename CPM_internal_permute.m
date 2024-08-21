@@ -2,7 +2,7 @@ function [p_all,R,R_permute_all]=CPM_internal_permute(all_mats,all_behav,dataset
     kfolds,r_method,pthresh,part_var,motion_var,outname,no_iter)
 
 % Permutation test for CPM_internal.m
-% written by Aaron Kucyi, Northeastern University
+% written by Aaron Kucyi
 % adapted from Shen et al. (2017 Nature Protocols)
 % INPUTS:
 % all_mats (required)   : ROI x ROI x trials FC matrix (or single vector for one ROI/edge)
