@@ -23,6 +23,6 @@ Functions for performing connectome-based predictive modeling (CPM) analysis, in
 
 *CPM_view_networks.m*: view intra- and inter-network contributions to positive and negative edges of a pre-computed CPM 
 
-![test](https://github.com/swglab/CPM_CONN/blob/master/images/eg_feature_contributions.png)
+![test](https://github.com/DynamicBrainMind/CPM_CONN/blob/master/images/eg_feature_contributions.png)
 
 *univariate_SchaeferYeo.m*: correlate behavior vs. connectivity between all intra- and inter-network pairs in the Schaefer atlas; apply FDR correction
